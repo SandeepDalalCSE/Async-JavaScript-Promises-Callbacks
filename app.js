@@ -1,6 +1,21 @@
 const button = document.querySelector("button");
 const output = document.querySelector("p");
 
+const getPosition = options => {
+  const promise = new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      successCallback => {
+        resolve(successCallback);
+      },
+      errorCallback => {
+        reject(errorCallback);
+      },
+      options
+    );
+  });
+  return promise;
+};
+
 // adding a promise in setTimer function.
 const setTimer = duration => {
   const promise = new Promise((resolve, reject) => {
@@ -13,16 +28,26 @@ const setTimer = duration => {
 
 function trackUserHandler() {
   // async code as this totally depends upon how much time browser will take to fetch the geolocation.
-  navigator.geolocation.getCurrentPosition(
-    positionValue => {
-      console.log(positionValue);
-      console.log(positionValue.coords);
-      console.log(positionValue.coords.latitude);
+  // navigator.geolocation.getCurrentPosition(
+  //   positionValue => {
+  //     console.log(positionValue);
+  //     console.log(positionValue.coords);
+  //     console.log(positionValue.coords.latitude);
+  //   },
+  //   positionErr => {
+  //     console.log(positionErr.code);
+  //     console.log(positionErr.message);
+  //     console.log(positionErr);
+  //   }
+  // );
+
+  // calling getPosition() method
+  getPosition().then(
+    resData => {
+      console.log(resData);
     },
-    positionErr => {
-      console.log(positionErr.code);
-      console.log(positionErr.message);
-      console.log(positionErr);
+    rejData => {
+      console.log(rejData);
     }
   );
   // sync code
