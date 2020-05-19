@@ -1,6 +1,16 @@
 const button = document.querySelector("button");
 const output = document.querySelector("p");
 
+// adding a promise in setTimer function.
+const setTimer = duration => {
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("promise in setTimer function");
+    }, duration);
+  });
+  return promise;
+};
+
 function trackUserHandler() {
   // async code as this totally depends upon how much time browser will take to fetch the geolocation.
   navigator.geolocation.getCurrentPosition(
@@ -17,6 +27,10 @@ function trackUserHandler() {
   );
   // sync code
   console.log("this will be executed first than the geolocation.");
+  // calling setTimer function.
+  setTimer(2000).then(resData => {
+    console.log(resData);
+  });
 }
 button.addEventListener("click", trackUserHandler);
 
