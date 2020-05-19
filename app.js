@@ -21,6 +21,7 @@ const setTimer = duration => {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve("promise in setTimer function");
+      reject("it was rejected");
     }, duration);
   });
   return promise;
@@ -56,15 +57,20 @@ function trackUserHandler() {
     .then(
       resData => {
         console.log(resData);
-        return setTimer(2000);
+        return setTimer(2000); // calling another setTimer function(). using then block this will be executed.
       },
       rejData => {
         console.log(rejData);
       }
     )
-    .then(timerData => {
-      console.log(timerData);
-    });
+    .then(
+      timerData => {
+        console.log(timerData);
+      },
+      timerRejData => {
+        console.log(timerRejData);
+      }
+    );
   // sync code
   console.log("this will be executed first than the geolocation.");
   // calling setTimer function.
