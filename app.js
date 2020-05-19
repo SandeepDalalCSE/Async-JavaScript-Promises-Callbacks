@@ -50,6 +50,21 @@ function trackUserHandler() {
       console.log(rejData);
     }
   );
+
+  // chaining multiple promises.
+  getPosition()
+    .then(
+      resData => {
+        console.log(resData);
+        return setTimer(2000);
+      },
+      rejData => {
+        console.log(rejData);
+      }
+    )
+    .then(timerData => {
+      console.log(timerData);
+    });
   // sync code
   console.log("this will be executed first than the geolocation.");
   // calling setTimer function.
